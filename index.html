@@ -14,39 +14,8 @@
     <div class="main-content">
         <label for="country" type="search">Enter country: </label>
         <div class="dropdown">
-            <input type="text" id="country" name="country" placeholder="Search.." onkeyup="filterFunction()">
-            <div id="myDropdown" class="dropdown-content">
-                <script>
-                    function start() {
-                        let url = 'https://covid-193.p.rapidapi.com/statistics';
-                        let country = capitalizeFirstLetter(getCountry());
-                        let country_index = 0;
-                        let countries_arr = [];
-
-                        fetch(url, {
-                            "method": "GET",
-                            "headers": {
-                                "x-rapidapi-host": "covid-193.p.rapidapi.com",
-                                "x-rapidapi-key": "1402c9f66emsh7474c564acaca79p1eed5bjsn30eb91f25ef6"
-                            }
-                        })
-                            .then(response => {
-                                return response.json()
-                            })
-                            .then(data => {
-                                for (let i = 0; i < data.response.length; i++) {
-                                    countries_arr.push(data.response[i].country);
-                                    if (data.response[i].country == country) {
-                                        country_index = i;
-                                    }
-                                }
-                            })
-                            .catch(err => {
-                                console.log(err);
-                            });
-                        console.log(countries_arr);
-                    }
-                </script>
+            <input type="text" id="countryInput" name="countryInput" placeholder="Search.." oninput="updateDropdown()">
+            <div id="countryDropdown" class="active">
             </div>
         </div>
         <button id="myBtn" onclick="display()">Submit</button><br><br>

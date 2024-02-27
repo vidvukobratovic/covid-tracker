@@ -1,4 +1,4 @@
-let countries_arr = [
+const countries_arr = [
   "Afghanistan",
   "Africa",
   "Albania",
@@ -242,6 +242,7 @@ let countries_arr = [
 function display() {
   let url = "https://covid-193.p.rapidapi.com/statistics";
   let country = capitalizeFirstLetter(getCountry());
+  const resultsContainer = document.getElementById("info");
   let country_index = 0;
 
   fetch(url, {
@@ -292,7 +293,7 @@ function display() {
 }
 
 function getCountry() {
-  const cntry = document.getElementById("country").value;
+  const cntry = document.getElementById("countryInput").value;
   return cntry;
 }
 
@@ -303,13 +304,12 @@ function capitalizeFirstLetter(string) {
 function start() {
   let url = "https://covid-193.p.rapidapi.com/statistics";
   let country = capitalizeFirstLetter(getCountry());
-  let country_index = 0;
 
   fetch(url, {
     method: "GET",
     headers: {
       "x-rapidapi-host": "covid-193.p.rapidapi.com",
-      "x-rapidapi-key": "1402c9f66emsh7474c564acaca79p1eed5bjsn30eb91f25ef6",
+      "x-rapidapi-key": "",
     },
   })
     .then((response) => {
@@ -329,4 +329,35 @@ function start() {
   console.log(countries_arr);
 }
 
-function filterFunction() {}
+function updateDropdown() {
+  const userInput = countryInput.value.toLowerCase();
+
+  // Filter countries based on user input (case-insensitive)
+  const filteredCountries = countries_arr
+    .filter((country) => country.toLowerCase().includes(userInput))
+    .filter((value, index, self) => self.indexOf(value) === index);
+
+  // Update dropdown options
+  updateDropdownOptions(filteredCountries);
+}
+
+function updateDropdownOptions(countries) {
+  // Clear existing options
+  countryDropdown.innerHTML = "";
+
+  // Add new options
+  countries.forEach((country) => {
+    const option = document.createElement("div");
+    option.textContent = country;
+    option.onclick = () => {
+      // Set the input value to the selected country
+      countryInput.value = country;
+      // Hide the dropdown
+      countryDropdown.classList.remove("active");
+    };
+    countryDropdown.appendChild(option);
+  });
+
+  // Show the dropdown
+  countryDropdown.classList.add("active");
+}

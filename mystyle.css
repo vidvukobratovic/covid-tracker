@@ -75,3 +75,39 @@ div.info p {
 }
 
 
+#countryInputContainer {
+  position: relative;
+  display: inline-block;
+}
+
+#countryInput {
+  margin-bottom: 10px;
+  width: 200px;
+}
+
+#countryDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  display: none;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #fff;
+  width: 100%;
+  margin-top: -8px;
+}
+
+#countryDropdown div {
+  padding: 5px;
+  cursor: pointer;
+}
+
+#countryDropdown div:hover {
+  background-color: #f0f0f0; /* Change the background color on hover */
+}
+
+#countryDropdown.active {
+  display: block;
+}
